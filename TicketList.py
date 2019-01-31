@@ -115,8 +115,8 @@ class TicketList(QWidget):
             item = i.split('|')  # 用"|"进行分割
             # set item data
             self.table.setItem(row, 0, QTableWidgetItem(item[3]))  # 车次
-            self.table.setItem(row, 1, QTableWidgetItem(Crawler.get_station_name(Crawler.station_file, item[6])))  # 始发站
-            self.table.setItem(row, 2, QTableWidgetItem(Crawler.get_station_name(Crawler.station_file, item[7])))  # 终点站
+            self.table.setItem(row, 1, QTableWidgetItem(Crawler.station_dict[item[6]]))  # 始发站
+            self.table.setItem(row, 2, QTableWidgetItem(Crawler.station_dict[item[7]]))  # 终点站
             self.table.setItem(row, 3, QTableWidgetItem(item[8]))  # 出发时间
             self.table.setItem(row, 4, QTableWidgetItem(item[9]))  # 到达时间
             self.table.setItem(row, 5, QTableWidgetItem(item[10]))  # 历时

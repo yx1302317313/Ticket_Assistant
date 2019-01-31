@@ -12,7 +12,7 @@ from PyQt5.QtWidgets import QDateEdit
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtCore import QDate
 from PyQt5.QtCore import pyqtSignal
-from Crawler import *
+import Crawler 
 
 
 class SingleTicket(QWidget):
@@ -98,15 +98,15 @@ class SingleTicket(QWidget):
         src = self.src_text.text()
         des = self.des_text.text()
 
-        if src == '':
+        if src == '': 
             QMessageBox.critical(self, "Error", "请输入出发地", QMessageBox.Ok)
             return
         if des == '':
             QMessageBox.critical(self, "Error", "请输入目的地", QMessageBox.Ok)
             return
 
-        src = get_station_code(station_file, src)
-        des = get_station_code(station_file, des)
+        src = Crawler.code_dict[src]
+        des = Crawler.code_dict[des]
 
         if src == "":
             QMessageBox.critical(self, "Error", "输入出发地有误", QMessageBox.Ok)

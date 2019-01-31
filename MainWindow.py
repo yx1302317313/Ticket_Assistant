@@ -9,7 +9,8 @@ from PyQt5.QtWidgets import QToolBar
 from PyQt5.QtWidgets import QAction
 from UserInfo import UserInfo
 from TrainTicket import TrainTicket
-from TabStyle import TabStyle
+from TabStyle import TabStyle 
+import Crawler 
 
 
 class MainWindow(QMainWindow):
@@ -58,6 +59,9 @@ class MainWindow(QMainWindow):
 
         self.set_layout()
         self.connect_signal()
+
+        # load info 
+        Crawler.load_train_code(Crawler.station_file, Crawler.station_dict,Crawler.code_dict)
 
     def connect_signal(self):
         self.table.currentChanged.connect(self.on_tab_changed)

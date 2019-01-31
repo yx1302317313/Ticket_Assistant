@@ -2,9 +2,10 @@ import re
 import requests
 import json
 
-
+# global member
 station_file = "stations.txt"
-
+station_dict = {}
+code_dict = {}
 
 def format_date(date: str):
     # change date format
@@ -82,14 +83,6 @@ def query_tickets(date: str, src: str, des: str, is_adult=True):
     # return html text
     return response.text
 
-
-# "IC3C72lFIjs6NCunrMhQODsE9%2FPyjLKD3grBswRq88LFpKdPgnZUuOaMDF0Ek0JUB7m85u" \
-# "6xD%2B6G%0AStma%2BcrUpJt4TxAApA%2Bta6OSZeOG8RCkxM3FUsxJQYdvC3cEhCp%2Bpx%2FOKA%" \
-# "2FFPs02xAFZdA0D4PIH%0AqimVTG2stg%2BoJhp97OtqnqIfsZrfdKhR9FjH%2BXf1ijfn4%2BBgKh3J1" \
-# "jUNxuMR1XAq24Dx0PMsgaDr%0Aox9NjN5gmguxPtWPVcq5Mka0dTa9EE4OUkrjb50P5ztfnEl5L6AaLmbw" \
-# "zf11uzbYhK3CRu%2B4beXT%0ADGl5NQ%3D%3D|预订|5l000D314541|D3145|AOH|GZG|AOH|FYS|06:40" \
-# "|13:08|06:28|Y|i%2FXsKxSwYs7jwvRBAHG%2FFQv4CDq%2Fz75wrL6UV5O5exZHwllH|20190128|3|H2" \
-# "|01|17|1|0|||||||有||||无|无|||O0M0O0|OMO|0|0|null"
 
 def get_tickets(html):
     html = json.loads(html)
@@ -181,13 +174,28 @@ def get_station_name(file, code):
 
 
 def get_station_code(file, name):
-    with open(file, 'r') as f:
+    try:
+        with open(file, 'r') as f:
+            text = f.readline()
+            while text:
+                item = text.split(' ')
+                if item[0] == name:
+                    return item[1]  # return station code
+
+                text = f.readline()
+    except IndexError:
+        return ""
+    
+    return ""
+
+
+def load_train_code(file, station, code):
+
+    with open(file) as f:
         text = f.readline()
         while text:
             item = text.split(' ')
-            if item[0] == name:
-                return item[1]  # return station code
+            station[item[1][:3]] = item[0]
+            code[item[0]] = item[1][:3]
 
             text = f.readline()
-
-    return ""
