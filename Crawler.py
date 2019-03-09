@@ -7,6 +7,7 @@ station_file = "stations.txt"
 station_dict = {}
 code_dict = {}
 
+
 def format_date(date: str):
     # change date format
     result = date.replace('/', '-')
@@ -55,7 +56,7 @@ def save_stations(file, stations):
 
 def query_tickets(date: str, src: str, des: str, is_adult=True):
     # 12306 ticket query url
-    url = "https://kyfw.12306.cn/otn/leftTicket/queryZ?"
+    url = "https://kyfw.12306.cn/otn/leftTicket/queryX?"
 
     if not isinstance(src, str):
         print("source is not a station!")
